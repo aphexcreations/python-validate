@@ -45,6 +45,7 @@ files=$(
 ## Some pylint message IDs that we use:
 ##
 ##  * W0212: Access to a protected member _* of a client class
+##  * F0401: Unable to import module *
 ##
 
 for file in ${files}; do
@@ -70,7 +71,7 @@ for file in ${files}; do
              --variable-rgx="[a-z_][a-z0-9_]*" \
              --const-rgx="(([A-Za-z_][A-Za-z0-9_]*)|(__.*__))$" \
              --good-name="getLogLevel,_logLevelName,_levelNames" \
-             --disable="W0212" \
+             --disable="W0212,F0401" \
              --reports=n \
              ${file} 2>&1
     )
