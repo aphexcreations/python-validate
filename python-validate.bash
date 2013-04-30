@@ -4,8 +4,23 @@
 ## Runs PEP8 and PyLint Validations
 ##
 
-exec_dir=$(dirname ${0})
-cd "${exec_dir}/"
+if [ -z "${1}" ]; then
+    echo "A PATH ARGUMENT IS REQUIRED."
+    exit 1
+elif [[ "$1" = /* ]]; then
+    ## Absolute path
+    exec_dir="${1}"
+else
+    ## Relative path
+    exec_dir="$(pwd)/${1}"
+fi;
+if [ ! -d "${exec_dir}" ]; then
+    echo "NOT VALID DIRECTORY: ${exec_dir}"
+    exit 1
+fi;
+
+## Change to dir
+cd ${exec_dir}
 
 ##
 ## Get python files
