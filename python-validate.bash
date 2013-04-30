@@ -88,9 +88,11 @@ for file in ${files}; do
     pylint_res=$(
          pylint \
              --max-args="15" \
-             --variable-rgx="[a-z_][a-z0-9_]*" \
+             --variable-rgx="[a-z_][a-z0-9_]{,30}" \
              --const-rgx="(([A-Za-z_][A-Za-z0-9_]*)|(__.*__))$" \
+             --argument-rgx="[a-z_][a-z0-9_]{,30}$" \
              --good-name="getLogLevel,_logLevelName,_levelNames" \
+             --bad-functions="eval,exec,execfile" \
              --min-public-methods="1" \
              --max-returns="10" \
              --disable="W0212,F0401,W0232,R0201" \
