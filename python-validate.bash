@@ -6,40 +6,58 @@
 
 if [ -z "${1}" ]; then
     echo "A PATH ARGUMENT IS REQUIRED."
+    echo "IT CAN EITHER BE A FILE OR DIRECTORY PATH."
     exit 1
 elif [[ "$1" = /* ]]; then
     ## Absolute path
-    exec_dir="${1}"
+    start_point="${1}"
 else
     ## Relative path
-    exec_dir="$(pwd)/${1}"
+    start_point="$(pwd)/${1}"
 fi;
-if [ ! -d "${exec_dir}" ]; then
-    echo "NOT VALID DIRECTORY: ${exec_dir}"
+
+if [ -d "${start_point}" ]; then
+    ##
+    ## Is a Directory
+    ##
+
+    ## Change to dir
+    cd ${start_point}
+
+    ##
+    ## Get python files
+    ##
+    files=$(
+        find . \
+            -type f -and \
+            -iname "*.py" -and \
+            \( \
+                -not \
+                \( \
+                    -iwholename "*/tests/*" -or \
+                    -iwholename "*/test/*" -or \
+                    -iwholename "*/.git/*" -or \
+                    -iwholename "*/migrations/*" -or \
+                    -iname "test_*.py" \
+                \) \
+            \)
+    )
+elif [ -f "${start_point}" ]; then
+    ##
+    ## Is a file
+    ##
+
+    ## Change to dir
+    cd $(dirname ${start_point})
+    files="${start_point}"
+else
+    ##
+    ## Something else
+    ##
+    echo "PATH ARGUMENT IS NOT A VALID DIRECTORY OR FILE PATH."
     exit 1
 fi;
 
-## Change to dir
-cd ${exec_dir}
-
-##
-## Get python files
-##
-files=$(
-    find . \
-        -type f -and \
-        -iname "*.py" -and \
-        \( \
-            -not \
-            \( \
-                -iwholename "*/tests/*" -or \
-                -iwholename "*/test/*" -or \
-                -iwholename "*/.git/*" -or \
-                -iwholename "*/migrations/*" -or \
-                -iname "test_*.py" \
-            \) \
-        \)
-)
 
 ##
 ## Some pylint message IDs that we use:
