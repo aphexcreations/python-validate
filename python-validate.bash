@@ -92,6 +92,7 @@ for file in ${files}; do
              --const-rgx="(([A-Za-z_][A-Za-z0-9_]*)|(__.*__))$" \
              --good-name="getLogLevel,_logLevelName,_levelNames" \
              --min-public-methods="1" \
+             --max-returns="10" \
              --disable="W0212,F0401,W0232,R0201" \
              --reports=n \
              ${file} 2>&1
