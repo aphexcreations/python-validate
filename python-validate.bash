@@ -70,11 +70,7 @@ fi;
 ##
 
 for file in ${files}; do
-    pep_res=$(
-        pep8 \
-            -qq \
-            ${file} 2>&1
-    )
+    pep_res=$(pep8 ${file} 2>&1)
     pep_status=${?}
     if [ ${pep_status} -ne 0 ]; then
         echo
@@ -88,11 +84,12 @@ for file in ${files}; do
     fi
     pylint_res=$(
          pylint \
+             --max-locals="20" \
              --max-args="15" \
              --variable-rgx="[a-z_][a-z0-9_]{,30}" \
              --const-rgx="(([A-Za-z_][A-Za-z0-9_]*)|(__.*__))$" \
              --argument-rgx="[a-z_][a-z0-9_]{,30}$" \
-             --good-name="getLogLevel,_logLevelName,_levelNames" \
+             --generated-members="hashlib.md5" \
              --bad-functions="eval,exec,execfile" \
              --min-public-methods="1" \
              --max-returns="10" \
