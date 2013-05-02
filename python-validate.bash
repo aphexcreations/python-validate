@@ -66,6 +66,7 @@ fi;
 ##  - F0401: Unable to import module
 ##  - W0232: Class has no __init__ method
 ##  - R0201: Method could be a function 
+##  - W0142: Used * or ** magic*
 ##
 
 for file in ${files}; do
@@ -95,8 +96,9 @@ for file in ${files}; do
              --bad-functions="eval,exec,execfile" \
              --min-public-methods="1" \
              --max-returns="10" \
-             --disable="W0212,F0401,W0232,R0201" \
-             --reports=n \
+             --disable="W0212,F0401,W0232,R0201,W0142" \
+             --reports="n" \
+             --include-ids="y" \
              ${file} 2>&1
     )
     pylint_status=${?}
