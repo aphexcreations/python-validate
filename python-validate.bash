@@ -65,9 +65,11 @@ fi;
 ##  - W0212: Access to a protected member _* of a client class
 ##  - F0401: Unable to import module
 ##  - W0232: Class has no __init__ method
-##  - R0201: Method could be a function 
+##  - R0201: Method could be a function
 ##  - W0142: Used * or ** magic
 ##  - W0511: Used when a warning note as FIXME or XXX is detected
+##  - W0613: Unused argument %r Used when a function or
+##           method argument is not used.
 ##
 
 for file in ${files}; do
@@ -95,7 +97,7 @@ for file in ${files}; do
              --min-public-methods="1" \
              --max-returns="10" \
              --max-branchs="33" \
-             --disable="W0212,F0401,W0232,R0201,W0142,W0511" \
+             --disable="W0212,F0401,W0232,R0201,W0142,W0511,W0613" \
              --reports="n" \
              --include-ids="y" \
              ${file} 2>&1
