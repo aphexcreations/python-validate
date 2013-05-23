@@ -94,7 +94,7 @@ for file in ${files}; do
              --argument-rgx="[a-z_][a-z0-9_]{,30}$" \
              --generated-members="hashlib.md5" \
              --bad-functions="eval,exec,execfile" \
-             --min-public-methods="1" \
+             --min-public-methods="0" \
              --max-returns="10" \
              --max-branchs="33" \
              --disable="W0212,F0401,W0232,R0201,W0142,W0511,W0613" \
