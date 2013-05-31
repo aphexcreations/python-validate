@@ -70,6 +70,7 @@ fi;
 ##  - W0511: Used when a warning note as FIXME or XXX is detected
 ##  - W0613: Unused argument %r Used when a function or
 ##           method argument is not used.
+##  - W0110: map/filter on lambda could be replaced by comprehension
 ##
 
 for file in ${files}; do
@@ -97,7 +98,7 @@ for file in ${files}; do
              --min-public-methods="0" \
              --max-returns="10" \
              --max-branchs="33" \
-             --disable="W0212,F0401,W0232,R0201,W0142,W0511,W0613" \
+             --disable="W0212,F0401,W0232,R0201,W0142,W0511,W0613,W0110" \
              --reports="n" \
              --include-ids="y" \
              ${file} 2>&1
