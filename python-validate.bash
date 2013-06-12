@@ -89,9 +89,10 @@ for file in ${files}; do
          pylint \
              --max-locals="20" \
              --max-args="15" \
-             --variable-rgx="[a-z_][a-z0-9_]{,30}" \
-             --const-rgx="(([A-Za-z_][A-Za-z0-9_]*)|(__.*__))$" \
-             --argument-rgx="[a-z_][a-z0-9_]{,30}$" \
+             --variable-rgx="^[a-z_][a-z0-9_]{,30}" \
+             --const-rgx="^(([A-Za-z_][A-Za-z0-9_]*)|(__.*__))$" \
+             --argument-rgx="^[a-z_][a-z0-9_]{,30}$" \
+             --attr-rgx="^[a-z_][a-z0-9_]{1,30}$" \
              --generated-members="hashlib.md5" \
              --bad-functions="eval,exec,execfile" \
              --min-public-methods="0" \
