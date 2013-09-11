@@ -81,6 +81,7 @@ for file in ${files}; do
     pylint_res=$(
          pylint \
              --rcfile="${PYLINT_RC}" \
+             --disable="I0011" \
              --disable="W0212" \
              --disable="F0401" \
              --disable="W0232" \

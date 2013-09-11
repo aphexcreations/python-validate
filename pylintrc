@@ -38,6 +38,8 @@ persistent=no
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
 
+## I0011: Locally disabling
+disable=I0011
 ## W0212: Access to a protected member _* of a client class
 disable=W0212
 ## F0401: Unable to import module
