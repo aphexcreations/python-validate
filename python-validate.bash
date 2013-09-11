@@ -4,6 +4,10 @@
 ## Runs PEP8 and PyLint Validations
 ##
 
+THIS_DIR=$(dirname ${0})
+PYLINT_RC="${THIS_DIR}/pylintrc"
+
+
 if [ -z "${1}" ]; then
     echo "A PATH ARGUMENT IS REQUIRED."
     echo "IT CAN EITHER BE A FILE OR DIRECTORY PATH."
@@ -58,23 +62,8 @@ else
     exit 1
 fi;
 
-
-##
-## Some pylint message IDs that we use:
-##
-##  - W0212: Access to a protected member _* of a client class
-##  - F0401: Unable to import module
-##  - W0232: Class has no __init__ method
-##  - R0201: Method could be a function
-##  - W0142: Used * or ** magic
-##  - W0511: Used when a warning note as FIXME or XXX is detected
-##  - W0613: Unused argument %r Used when a function or
-##           method argument is not used.
-##  - W0110: map/filter on lambda could be replaced by comprehension
-##
-
 for file in ${files}; do
-    pep_res=$(pep8 ${file} 2>&1)
+    pep_res=$(pep8 "${file}" 2>&1)
     pep_status=${?}
     if [ ${pep_status} -ne 0 ]; then
         echo
@@ -87,22 +76,7 @@ for file in ${files}; do
         exit 1
     fi
     pylint_res=$(
-         pylint \
-             --max-locals="20" \
-             --max-args="15" \
-             --variable-rgx="^[a-z_][a-z0-9_]{,30}" \
-             --const-rgx="^(([A-Za-z_][A-Za-z0-9_]*)|(__.*__))$" \
-             --argument-rgx="^[a-z_][a-z0-9_]{,30}$" \
-             --attr-rgx="^[a-z_][a-z0-9_]{1,30}$" \
-             --generated-members="hashlib.md5" \
-             --bad-functions="eval,exec,execfile" \
-             --min-public-methods="0" \
-             --max-returns="10" \
-             --max-branchs="33" \
-             --disable="W0212,F0401,W0232,R0201,W0142,W0511,W0613,W0110" \
-             --reports="n" \
-             --include-ids="y" \
-             ${file} 2>&1
+         pylint --rcfile="${PYLINT_RC}" "${file}" 2>&1
     )
     pylint_status=${?}
     if [ ${pylint_status} -ne 0 ]; then
