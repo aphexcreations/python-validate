@@ -5,8 +5,7 @@
 ##
 
 THIS_DIR=$(dirname ${0})
-PYLINT_RC="${THIS_DIR}/pylintrc"
-
+PYLINT_RC=$(readlink -f "${THIS_DIR}/pylintrc")
 
 if [ -z "${1}" ]; then
     echo "A PATH ARGUMENT IS REQUIRED."
