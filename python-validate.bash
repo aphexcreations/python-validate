@@ -74,8 +74,22 @@ for file in ${files}; do
         echo
         exit 1
     fi
+    ##
+    ## Need to inline disable messages here
+    ## since they are not respected from rcfile
+    ##
     pylint_res=$(
-         pylint --rcfile="${PYLINT_RC}" "${file}" 2>&1
+         pylint \
+             --rcfile="${PYLINT_RC}" \
+             --disable="W0212" \
+             --disable="F0401" \
+             --disable="W0232" \
+             --disable="R0201" \
+             --disable="W0142" \
+             --disable="W0511" \
+             --disable="W0613" \
+             --disable="W0110" \
+             "${file}" 2>&1
     )
     pylint_status=${?}
     if [ ${pylint_status} -ne 0 ]; then
