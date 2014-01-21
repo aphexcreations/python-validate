@@ -1,5 +1,7 @@
 #!/bin/bash
 
+THIS_DIR=$(dirname "${0}")
+
 if [ -z "${1}" ]; then
     echo "A PATH ARGUMENT IS REQUIRED."
     echo "IT CAN EITHER BE A FILE OR DIRECTORY PATH."
@@ -58,7 +60,7 @@ fi;
 ## Cycle through files
 ##
 for file in ${files}; do
-    bash ./validate-file.bash "${file}"
+    bash "${THIS_DIR}/validate-file.bash" "${file}"
     if [ ${?} -ne 0 ]; then
         echo "STOPPING."
         exit 1
