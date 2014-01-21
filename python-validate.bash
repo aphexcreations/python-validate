@@ -1,12 +1,5 @@
 #!/bin/bash
 
-##
-## Runs PEP8 and PyLint Validations
-##
-
-THIS_DIR=$(dirname ${0})
-PYLINT_RC=$(readlink -f "${THIS_DIR}/pylintrc")
-
 if [ -z "${1}" ]; then
     echo "A PATH ARGUMENT IS REQUIRED."
     echo "IT CAN EITHER BE A FILE OR DIRECTORY PATH."
@@ -61,48 +54,15 @@ else
     exit 1
 fi;
 
+##
+## Cycle through files
+##
 for file in ${files}; do
-    pep_res=$(pep8 "${file}" 2>&1)
-    pep_status=${?}
-    if [ ${pep_status} -ne 0 ]; then
-        echo
-        echo "CODE DOES NOT PASS PEP8. FILE:"
-        echo
-        echo "> ${file}"
-        echo
-        echo -e "${pep_res}"
-        echo
+    bash ./validate-file.bash "${file}"
+    if [ ${?} -ne 0 ]; then
+        echo "STOPPING."
         exit 1
-    fi
-    ##
-    ## Need to inline disable messages here
-    ## since they are not respected from rcfile
-    ##
-    pylint_res=$(
-         pylint \
-             --rcfile="${PYLINT_RC}" \
-             --disable="I0011" \
-             --disable="W0212" \
-             --disable="F0401" \
-             --disable="W0232" \
-             --disable="R0201" \
-             --disable="W0142" \
-             --disable="W0511" \
-             --disable="W0613" \
-             --disable="W0110" \
-             "${file}" 2>&1
-    )
-    pylint_status=${?}
-    if [ ${pylint_status} -ne 0 ]; then
-        echo
-        echo "CODE DOES NOT PASS PYLINT. FILE:"
-        echo
-        echo "> ${file}"
-        echo
-        echo -e "${pylint_res}"
-        echo
-        exit 1
-    fi
+    fi;
 done;
 
 exit 0
