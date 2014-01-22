@@ -4,7 +4,7 @@ INPUT_FILE="${1}"
 THIS_DIR=$(dirname "${0}")
 PYLINT_RC=$(readlink -f "${THIS_DIR}/pylintrc")
 
-echo "FILE: ${INPUT_FILE}"
+#echo "FILE: ${INPUT_FILE}"
 
 ##
 ## Make sure is a python file
@@ -14,6 +14,14 @@ fext="${fname##*.}"
 if [ "${fext}" != "py" ]; then
     echo "INVALID FILENAME"
     exit 1
+fi;
+
+##
+## If file is completely empty,
+## no need to actually check it
+##
+if ! [ -s "${INPUT_FILE}" ]; then
+    exit 0
 fi;
 
 ##
@@ -50,6 +58,7 @@ pylint_res=$(
          --disable="W0511" \
          --disable="W0613" \
          --disable="W0110" \
+         --disable="C0325" \
          "${INPUT_FILE}" 2>&1
 )
 pylint_status=${?}

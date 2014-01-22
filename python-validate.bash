@@ -62,7 +62,7 @@ fi;
 for file in ${files}; do
     bash "${THIS_DIR}/validate-file.bash" "${file}"
     if [ ${?} -ne 0 ]; then
-        echo "STOPPING."
+        #echo "STOPPING."
         exit 1
     fi;
 done;

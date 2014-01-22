@@ -38,25 +38,38 @@ persistent=no
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
 
-## I0011: Locally disabling
+## I0011
+## Msg: Locally disabling %s
 disable=I0011
-## W0212: Access to a protected member _* of a client class
+## W0212
+## Msg: Access to a protected member _* of a client class
 disable=W0212
-## F0401: Unable to import module
+## F0401
+## Msg: Unable to import module
 disable=F0401
-## W0232: Class has no __init__ method
+## W0232
+## Msg: Class has no __init__ method
 disable=W0232
-## R0201: Method could be a function
+## R0201
+## Msg: Method could be a function
 disable=R0201
-## W0142: Used * or ** magic
+## W0142
+## Msg: Used * or ** magic
 disable=W0142
-## W0511: Used when a warning note as FIXME or XXX is detected
+## W0511
+## Msg: Used when a warning note as FIXME or XXX is detected
 disable=W0511
-## W0613: Unused argument %r Used when a function or
-##        method argument is not used
+## W0613
+## Msg: Unused argument %r Used when a function or
+##      method argument is not used
 disable=W0613
-## W0110: map/filter on lambda could be replaced by comprehension
+## W0110
+## Msg: map/filter on lambda could be replaced by comprehension
 disable=W0110
+## C0325
+## Msg: Unnecessary parens after 'print' keyword
+## Reason: Python3 requires print(), so we want to ease transition
+disable=C0325
 
 
 [REPORTS]
