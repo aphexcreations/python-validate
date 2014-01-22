@@ -1,12 +1,24 @@
 #!/bin/bash
 
-THIS_DIR=$(dirname "${0}")
-
 if [ -z "${1}" ]; then
     echo "A PATH ARGUMENT IS REQUIRED."
     echo "IT CAN EITHER BE A FILE OR DIRECTORY PATH."
     exit 1
-elif [[ "$1" = /* ]]; then
+fi
+
+##
+## Get path for thisdir
+##
+THIS_DIR=$(dirname "${0}")
+if ! [[ "${THIS_DIR}" = /* ]]; then
+    ## Relative path
+    THIS_DIR="$(pwd)/${THIS_DIR}"
+fi;
+
+##
+## Get path for start_point
+##
+if [[ "${1}" = /* ]]; then
     ## Absolute path
     start_point="${1}"
 else
