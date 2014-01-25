@@ -59,6 +59,19 @@ while read -r changed_row; do
         #echo "Skipping (Extension): #${fpath}#, #${fext}#"
         continue;
     fi;
+    ## Make sure is not an excluded file
+    find_count=$(find \
+            "${fpath}" \
+            \( -type f \) \
+            \( -not -path "migrations/*" \) \
+            \( -not -path "*/migrations/*" \) \
+            \( -not -path "tests/*" \) \
+            \( -not -path "*/tests/*" \) \
+            \( -not -name "test_*.py" \) | wc -l)
+    #echo "FINDCOUNT: ${find_count}"
+    if [ ${find_count} -eq 0 ]; then
+        continue
+    fi;
     ## If status type is one of the ones that
     ## we want to check
     if [[ "${CHECK_TYPES[@]}" =~ "${fstatus_staged}" ]]; then
